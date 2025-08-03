@@ -12,6 +12,7 @@ module.exports = {
   DB_NAME: process.env.DB_NAME,
   DB_PORT: process.env.DB_PORT,
   PGSSLMODE: process.env.PGSSLMODE,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
   EMAIL_USER: process.env.EMAIL_USER,

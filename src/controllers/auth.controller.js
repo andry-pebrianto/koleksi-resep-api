@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { Resend } = require("resend");
 const authModel = require("../models/auth.model");
 const userModel = require("../models/user.model");
