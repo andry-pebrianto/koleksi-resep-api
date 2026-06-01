@@ -1,20 +1,13 @@
-version: '3.8'
-
 services:
-  koleksi-resep-server:
+  koleksi-resep-api:
     build:
       context: .
-    container_name: koleksi-resep-server
+    container_name: koleksi-resep-api
     restart: always
-    expose:
-      - 3001
+    ports:
+      - "3001:3001"
     env_file:
       - .env
-    environment:
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      NODE_OPTIONS: "--max-old-space-size=${MAX_OLD_SPACE_SIZE}"
     command: sh -c "npm run migrate up && npm run start"
     networks:
       - global

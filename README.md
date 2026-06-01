@@ -7,6 +7,7 @@
 </p>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 This is a Restful API repository for Koleksi Resep. This Restful API is built using ExpressJS and PostgreSQL.
@@ -15,13 +16,8 @@ This is a Restful API repository for Koleksi Resep. This Restful API is built us
 
 - [Express](https://expressjs.com/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [JWT](https://jwt.io/)
-- [Google APIs](https://github.com/googleapis/google-api-nodejs-client)
 - [Google Auth Library](https://www.npmjs.com/package/google-auth-library)
-- [Bcrypt](https://www.npmjs.com/package/bcrypt)
-- [Nodemailer](https://nodemailer.com/about/)
-- [Cloudinary](https://cloudinary.com/)
-- [Neon PostgreSQL](https://neon.tech/)
+- [Mailtrap](https://mailtrap.io/)
 
 ## Getting Started
 
@@ -42,20 +38,12 @@ PGHOST=
 PGPASSWORD=
 PGDATABASE=
 PGPORT=
-PGSSLMODE=
 GOOGLE_CLIENT_ID=
 ACCESS_TOKEN_KEY=
 REFRESH_TOKEN_KEY=
-EMAIL_USER=
+MAILTRAP_TOKEN=
 EMAIL_FROM=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-CLOUDINARY_CLOUD_NAME=
-RESEND_API_KEY=
-VIRTUAL_HOST=
-LETSENCRYPT_HOST=
-LETSENCRYPT_EMAIL=
-MAX_OLD_SPACE_SIZE=
+RUSTFS_URL=
 ```
 
 - Migrate database using `npm run migrate up`
@@ -65,7 +53,8 @@ MAX_OLD_SPACE_SIZE=
 - Run program with `npm run dev` for development and `npm run start` for production
 
 <!-- RELATED PROJECT -->
-## Related Project 
+
+## Related Project
 
 - [Koleksi Resep Client](https://github.com/andry-pebrianto/koleksi-resep-client)
 - [Koleksi Resep Demo](https://koleksiresep.andrypebrianto.com)
@@ -81,4 +70,3 @@ Contributors names and contact info:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details
- 

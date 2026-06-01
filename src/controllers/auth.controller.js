@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require("google-auth-library");
-const { Resend } = require("resend");
+const nodemailer = require("nodemailer");
 const authModel = require("../models/auth.model");
 const userModel = require("../models/user.model");
 const { success, failed } = require("../utils/createResponse");
@@ -15,11 +15,18 @@ const {
   CLIENT_URL,
   REFRESH_TOKEN_KEY,
   GOOGLE_CLIENT_ID,
-  RESEND_API_KEY,
   EMAIL_FROM,
+  MAILTRAP_TOKEN,
 } = require("../utils/env");
 
-const resend = new Resend(RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  host: "live.smtp.mailtrap.io",
+  port: 587,
+  auth: {
+    user: "api",
+    pass: MAILTRAP_TOKEN,
+  },
+});
 
 module.exports = {
   register: async (req, res) => {
@@ -45,14 +52,12 @@ module.exports = {
       });
       await authModel.updateToken(insertData.rows[0].id, token);
 
-      // send email for activate account
-      const templateEmail = {
-        from: `${APP_NAME} <${EMAIL_FROM}>`,
-        to: [req.body.email.toLowerCase()],
+      const result = await transporter.sendMail({
+        from: `"${APP_NAME}" <${EMAIL_FROM}>`,
+        to: req.body.email.toLowerCase(),
         subject: "Activate Your Account!",
         html: activateAccountEmail(`${API_URL}/auth/activation/${token}`),
-      };
-      const result = await resend.emails.send(templateEmail);
+      });
       console.log(result);
 
       success(res, {
@@ -279,14 +284,12 @@ module.exports = {
         const token = crypto.randomBytes(30).toString("hex");
         await authModel.updateToken(user.rows[0].id, token);
 
-        // send email for reset password
-        const templateEmail = {
-          from: `${APP_NAME} <${EMAIL_FROM}>`,
+        const result = await transporter.sendMail({
+          from: `"${APP_NAME}" <${EMAIL_FROM}>`,
           to: req.body.email.toLowerCase(),
           subject: "Reset Your Password!",
           html: resetAccountEmail(`${CLIENT_URL}/auth/reset/${token}`),
-        };
-        const result = await resend.emails.send(templateEmail);
+        });
         console.log(result);
       }
 

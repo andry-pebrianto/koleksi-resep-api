@@ -23,6 +23,8 @@
         "prefer-template": "off",
         "function-paren-newline": "off",
         "indent": "off",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "import/no-extraneous-dependencies": "off",
+        "arrow-body-style": "off"
     }
 }
