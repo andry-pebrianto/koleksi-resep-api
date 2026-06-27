@@ -13,7 +13,6 @@ const config = {
   password: DB_PASSWORD,
   database: DB_NAME,
   port: DB_PORT,
-  ssl: false,
 };
 
 const db = new Pool(config);
