@@ -9,9 +9,3 @@ services:
     env_file:
       - .env
     command: sh -c "npm run migrate up && npm run start"
-    networks:
-      - global
-
-networks:
-  global:
-    external: true
