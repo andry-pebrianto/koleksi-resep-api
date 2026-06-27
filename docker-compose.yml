@@ -13,5 +13,6 @@ services:
       - global
 
 networks:
-  nilabiru-data-hub-agent:
-    driver: bridge
+  global:
+    external: true
+    name: nilabiru-data-hub
