@@ -13,5 +13,28 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v5
 
+      - name: Create .env
+        run: |
+          {
+            echo "APP_NAME=${{ secrets.APP_NAME }}"
+            echo "NODE_ENV=${{ secrets.NODE_ENV }}"
+            echo "PORT=${{ secrets.PORT }}"
+            echo "API_URL=${{ secrets.API_URL }}"
+            echo "CLIENT_URL=${{ secrets.CLIENT_URL }}"
+            echo "PGUSER=${{ secrets.PGUSER }}"
+            echo "PGHOST=${{ secrets.PGHOST }}"
+            echo "PGPASSWORD=${{ secrets.PGPASSWORD }}"
+            echo "PGDATABASE=${{ secrets.PGDATABASE }}"
+            echo "PGPORT=${{ secrets.PGPORT }}"
+            echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}"
+            echo "ACCESS_TOKEN_KEY=${{ secrets.ACCESS_TOKEN_KEY }}"
+            echo "REFRESH_TOKEN_KEY=${{ secrets.REFRESH_TOKEN_KEY }}"
+            echo "MAILTRAP_TOKEN=${{ secrets.MAILTRAP_TOKEN }}"
+            echo "EMAIL_FROM=${{ secrets.EMAIL_FROM }}"
+            echo "RUSTFS_ENDPOINT=${{ secrets.RUSTFS_ENDPOINT }}"
+            echo "RUSTFS_ACCESS_KEY=${{ secrets.RUSTFS_ACCESS_KEY }}"
+            echo "RUSTFS_SECRET_KEY=${{ secrets.RUSTFS_SECRET_KEY }}"
+          } > .env
+
       - name: Run Deploy Script
         run: docker compose up -d --remove-orphans
