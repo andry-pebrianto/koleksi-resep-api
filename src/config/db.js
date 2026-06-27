@@ -1,6 +1,5 @@
 const { Pool } = require("pg");
 const {
-  NODE_ENV,
   DB_HOST,
   DB_USER,
   DB_PASSWORD,
@@ -14,13 +13,8 @@ const config = {
   password: DB_PASSWORD,
   database: DB_NAME,
   port: DB_PORT,
+  ssl: false,
 };
-
-if (NODE_ENV === "prod") {
-  config.ssl = {
-    rejectUnauthorized: false,
-  };
-}
 
 const db = new Pool(config);
 
