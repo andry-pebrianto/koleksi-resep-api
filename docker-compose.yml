@@ -15,4 +15,3 @@ services:
 networks:
   global:
     external: true
-    name: nilabiru-data-hub-agent
