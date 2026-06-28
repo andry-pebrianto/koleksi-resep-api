@@ -26,7 +26,7 @@ app.use(express.static("public"));
 
 // rate limiter
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 5 * 60 * 1000,
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
