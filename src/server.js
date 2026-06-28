@@ -9,6 +9,9 @@ const { failed } = require("./utils/createResponse");
 // deklarasi express
 const app = express();
 
+// trust proxy
+app.set("trust proxy", 1);
+
 // middleware
 app.use(express.json());
 app.use(
@@ -23,8 +26,8 @@ app.use(express.static("public"));
 
 // rate limiter
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 menit
-  max: 100, // maksimal 100 request per IP per 15 menit
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: {

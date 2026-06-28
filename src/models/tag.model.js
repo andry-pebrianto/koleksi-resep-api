@@ -21,6 +21,10 @@ const dbP = pgp({
 module.exports = {
   insert: (tags) =>
     new Promise((resolve, reject) => {
+      if (!tags || tags.length === 0) {
+        resolve(null);
+      }
+
       const tagsInsert = tags.map((tag) => ({
         id: uuidv4(),
         name: tag.toLowerCase(),
@@ -45,6 +49,10 @@ module.exports = {
     }),
   insertJunk: (id, tags) =>
     new Promise((resolve, reject) => {
+      if (!tags || tags.length === 0) {
+        resolve(null);
+      }
+
       const recipeTagsInsert = tags.map((tag) => ({
         id: uuidv4(),
         recipe_id: id,
