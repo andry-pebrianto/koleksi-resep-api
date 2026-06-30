@@ -23,6 +23,7 @@ module.exports = {
     new Promise((resolve, reject) => {
       if (!tags || tags.length === 0) {
         resolve(null);
+        return;
       }
 
       const tagsInsert = tags.map((tag) => ({
@@ -51,6 +52,7 @@ module.exports = {
     new Promise((resolve, reject) => {
       if (!tags || tags.length === 0) {
         resolve(null);
+        return;
       }
 
       const recipeTagsInsert = tags.map((tag) => ({
@@ -79,6 +81,7 @@ module.exports = {
       db.query("SELECT * FROM tags", (error, result) => {
         if (error) {
           reject(error);
+          return;
         }
         resolve(result);
       });
@@ -91,9 +94,10 @@ module.exports = {
         (error, result) => {
           if (error) {
             reject(error);
+            return;
           }
           resolve(result);
-        }
+        },
       );
     }),
   deleteJunkByRecipeId: (id) =>
@@ -104,9 +108,10 @@ module.exports = {
         (error, result) => {
           if (error) {
             reject(error);
+            return;
           }
           resolve(result);
-        }
+        },
       );
     }),
 };

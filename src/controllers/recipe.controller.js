@@ -14,7 +14,7 @@ module.exports = {
         req.APP_DATA.tokenDecoded.level,
         paging,
         search,
-        sort
+        sort,
       );
 
       success(res, {
@@ -67,8 +67,14 @@ module.exports = {
     try {
       const { title, ingredients, photoUrl, videoUrl, tags } = req.body;
 
+      // normalisasi tag SEKALI di awal, dan pakai versi ini terus
+      // supaya tidak mismatch dengan nama tag yang disimpan lowercase di DB
+      const normalizedTags = Array.isArray(tags)
+        ? tags.map((tag) => tag.trim().toLowerCase()).filter(Boolean)
+        : [];
+
       // insert tags (not if already exist)
-      await tagModel.insert(tags);
+      await tagModel.insert(normalizedTags);
 
       // insert recipe
       const recipe = await recipeModel.store({
@@ -82,9 +88,12 @@ module.exports = {
       // insert junk recipes & tags
       const tagsAfter = await tagModel.selectAll();
       const tagsJunk = tagsAfter.rows
-        .filter((tagAfter) => tags.includes(tagAfter.name))
+        .filter((tagAfter) => normalizedTags.includes(tagAfter.name))
         .map((tagJunk) => tagJunk.id);
-      await tagModel.insertJunk(recipe.rows[0].id, tagsJunk);
+
+      if (tagsJunk.length > 0) {
+        await tagModel.insertJunk(recipe.rows[0].id, tagsJunk);
+      }
 
       success(res, {
         code: 201,
@@ -104,8 +113,12 @@ module.exports = {
       const { id } = req.params;
       const { title, ingredients, photoUrl, videoUrl, tags } = req.body;
 
+      const normalizedTags = Array.isArray(tags)
+        ? tags.map((tag) => tag.trim().toLowerCase()).filter(Boolean)
+        : [];
+
       // insert tags (not if already exist)
-      await tagModel.insert(tags);
+      await tagModel.insert(normalizedTags);
 
       const recipe = await recipeModel.selectById(id);
       // jika recipe tidak ditemukan
@@ -127,12 +140,16 @@ module.exports = {
 
       // delete all old junk
       await tagModel.deleteJunkByRecipeId(id);
+
       // insert new junk
       const tagsAfter = await tagModel.selectAll();
       const tagsJunk = tagsAfter.rows
-        .filter((tagAfter) => tags.includes(tagAfter.name))
+        .filter((tagAfter) => normalizedTags.includes(tagAfter.name))
         .map((tagJunk) => tagJunk.id);
-      await tagModel.insertJunk(recipe.rows[0].id, tagsJunk);
+
+      if (tagsJunk.length > 0) {
+        await tagModel.insertJunk(recipe.rows[0].id, tagsJunk);
+      }
 
       success(res, {
         code: 200,
@@ -234,13 +251,13 @@ module.exports = {
       success(res, {
         code: 200,
         payload: recipeComments.rows,
-        message: 'Select List Comment By Recipe Success',
+        message: "Select List Comment By Recipe Success",
       });
     } catch (error) {
       failed(res, {
         code: 500,
         payload: error.message,
-        message: 'Internal Server Error',
+        message: "Internal Server Error",
       });
     }
   },
