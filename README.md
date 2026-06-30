@@ -59,7 +59,7 @@ RUSTFS_SECRET_KEY=
 ## Related Project
 
 - [Koleksi Resep Client](https://github.com/andry-pebrianto/koleksi-resep-client)
-- [Koleksi Resep Demo](https://koleksiresep.andrypebrianto.com)
+- [Koleksi Resep Demo](https://koleksi-resep.andrypebrianto.com)
 
 ## Authors
 
